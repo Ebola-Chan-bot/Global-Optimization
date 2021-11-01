@@ -1,0 +1,28 @@
+{
+    "GlobalOptimization.ColorAllocate":{
+        "inputs":[
+            {
+                "name":"NoColors",
+                "kind":"required",
+                "type":"positive",
+                "purpose":"要分配的颜色数目"
+            },
+            {
+                "name":"ColorsToAvoid",
+                "kind":"ordered",
+                "type":["real","size=:,3"],
+                "purpose":"要避免的颜色"
+            }
+        ],
+        "outputs":[
+            {
+                "name":"Colors",
+                "type":["uint8","size=:,3"]
+            },
+            {
+                "name":"MinDistance",
+                "type":"positive"
+            }
+        ]
+    }
+}

@@ -1,0 +1,170 @@
+<deployment-project plugin="plugin.toolbox" plugin-version="1.0">
+  <configuration file="D:\OneDrive - 翁悸会\MATLAB\全局优化\埃博拉酱的全局优化工具箱.prj" location="D:\OneDrive - 翁悸会\MATLAB\全局优化" name="埃博拉酱的全局优化工具箱" target="target.toolbox" target-name="打包为工具箱">
+    <param.appname>全局优化</param.appname>
+    <param.authnamewatermark>埃博拉酱</param.authnamewatermark>
+    <param.email>vhtmfu@outlook.com</param.email>
+    <param.company />
+    <param.summary>埃博拉酱的全局优化工具包，提供巧妙的全局优化类应用</param.summary>
+    <param.description>埃博拉酱的全局优化工具包，提供巧妙的全局优化类应用
+
+本项目的发布版本号遵循[语义化版本](https://semver.org/lang/zh-CN/)规范。开发者认为这是一个优秀的规范，并向每一位开发者推荐遵守此规范。
+# 目录
+本包中所有函数均在命名空间GlobalOptimization下，使用前需import。使用命名空间是一个好习惯，可以有效防止命名冲突，避免编码时不必要的代码提示干扰。
+```MATLAB
+import GlobalOptimization.*
+```
+- [ColorAllocate](#ColorAllocate) 根据人类视觉特点，提供最显眼的作图配色方案
+# ColorAllocate
+根据人类视觉特点，提供最显眼的作图配色方案
+
+作图时经常陷入如何挑选最优配色方案的顾虑。对于不同颜色数目的需求，往往有截然不同的配色方案。本函数解决此问题，输入需要的颜色数量，直接输出对人类视觉来说最为醒目、高对比的最佳配色方案！
+```MATLAB
+ColorAllocate(3,[0 0 0])%在黑色背景下作三色图的最优配色方案
+ColorAllocate(4,[255 255 255])%在白色背景下作四色图的最优配色方案
+ColorAllocate(2,[0 0 0;255 255 255])%在黑白交织背景下选择两种最醒目的颜色
+```
+本函数采用MultiStart和fmincon求解器搜索最优配色方案。因为搜索起点是随机指派的，每次调用函数可能得到不同的配色方案和不同的最小色差。您可以多次尝试，选择最小色差最大的方案。
+## 输入参数
+NoColors(1,1)，必需，要分配的颜色数目
+
+ColorsToAvoid(:,3)=[]，可选，要避免的颜色。作图通常需要在具有特定颜色的背景上进行，您应当将背景色输入本函数，否则本函数可能会分配过于接近背景色的颜色方案。每行提供一种要避免颜色的RGB三元向量，数值应在[0,255]范围内
+## 返回值
+Colors(:,3)uint8，分配的RGB颜色三元向量，每行一种颜色
+
+MinDistance(1,1)double，色差最小的两种颜色的差异。该值越大，配色方案就越好。</param.description>
+    <param.screenshot>${PROJECT_ROOT}\工具箱图标.png</param.screenshot>
+    <param.version>1.0.0</param.version>
+    <param.output>${PROJECT_ROOT}\全局优化.mltbx</param.output>
+    <param.products.name>
+      <item>Global Optimization Toolbox</item>
+    </param.products.name>
+    <param.products.id>
+      <item>90</item>
+    </param.products.id>
+    <param.products.version>
+      <item>4.6</item>
+    </param.products.version>
+    <param.platforms />
+    <param.guid>4d05e210-f73f-4916-9076-1c9b15718b36</param.guid>
+    <param.exclude.filters>% List files contained in your toolbox folder that you would like to exclude
+% from packaging.  Excludes should be listed relative to the toolbox folder.
+% Some examples of how to specify excludes are provided below:
+%
+% A single file in the toolbox folder:
+% .svn
+%
+% A single file in a subfolder of the toolbox folder:
+% example/.svn
+%
+% All files in a subfolder of the toolbox folder:
+% example/*
+%
+% All files of a certain name in all subfolders of the toolbox folder:
+% **/.svn
+%
+% All files matching a pattern in all subfolders of the toolbox folder:
+% **/*.bak
+%
+.git
+resources/project
+.gitattributes
+.gitignore</param.exclude.filters>
+    <param.exclude.pcodedmfiles>true</param.exclude.pcodedmfiles>
+    <param.examples />
+    <param.demosxml />
+    <param.apps />
+    <param.registered.apps />
+    <param.docs />
+    <param.getting.started.guide />
+    <param.matlabpath.excludes />
+    <param.javaclasspath.excludes />
+    <param.exported.on.package>false</param.exported.on.package>
+    <param.required.addons />
+    <param.matlab.project.id />
+    <param.matlab.project.name />
+    <param.release.start>R2021b</param.release.start>
+    <param.release.end>latest</param.release.end>
+    <param.release.current.only>false</param.release.current.only>
+    <param.compatiblity.windows>true</param.compatiblity.windows>
+    <param.compatiblity.macos>true</param.compatiblity.macos>
+    <param.compatiblity.linux>true</param.compatiblity.linux>
+    <param.compatiblity.matlabonline>true</param.compatiblity.matlabonline>
+    <param.installation.map />
+    <param.additional.sw.names />
+    <param.additional.sw.licenses />
+    <param.additional.sw.win.url />
+    <param.additional.sw.mac.url />
+    <param.additional.sw.linux.url />
+    <unset>
+      <param.company />
+      <param.output />
+      <param.platforms />
+      <param.exclude.pcodedmfiles />
+      <param.examples />
+      <param.demosxml />
+      <param.apps />
+      <param.registered.apps />
+      <param.docs />
+      <param.getting.started.guide />
+      <param.matlabpath.excludes />
+      <param.javaclasspath.excludes />
+      <param.exported.on.package />
+      <param.required.addons />
+      <param.matlab.project.id />
+      <param.matlab.project.name />
+      <param.release.current.only />
+      <param.compatiblity.windows />
+      <param.compatiblity.macos />
+      <param.compatiblity.linux />
+      <param.compatiblity.matlabonline />
+      <param.installation.map />
+      <param.additional.sw.names />
+      <param.additional.sw.licenses />
+      <param.additional.sw.win.url />
+      <param.additional.sw.mac.url />
+      <param.additional.sw.linux.url />
+    </unset>
+    <fileset.rootdir>
+      <file>${PROJECT_ROOT}</file>
+    </fileset.rootdir>
+    <fileset.rootfiles>
+      <file>${PROJECT_ROOT}\+GlobalOptimization</file>
+      <file>${PROJECT_ROOT}\README.md</file>
+      <file>${PROJECT_ROOT}\resources</file>
+      <file>${PROJECT_ROOT}\工具箱图标.png</file>
+    </fileset.rootfiles>
+    <fileset.depfun.included />
+    <fileset.depfun.excluded />
+    <fileset.package />
+    <build-deliverables>
+      <file location="${PROJECT_ROOT}" name="全局优化.mltbx" optional="false">D:\OneDrive - 翁悸会\MATLAB\全局优化\全局优化.mltbx</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>C:\Program Files\MATLAB\R2021b</root>
+      <toolboxes>
+        <toolbox name="neuralnetwork" />
+      </toolboxes>
+      <toolbox>
+        <neuralnetwork>
+          <enabled>true</enabled>
+        </neuralnetwork>
+      </toolbox>
+    </matlab>
+    <platform>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.0</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>win64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
