@@ -34,7 +34,7 @@ Colors(:,3)double，分配的RGB颜色三元向量，每行一种颜色
 
 MinDistance(1,1)double，色差最小的两种颜色的视觉差异。该值越大，配色方案就越对比鲜明。</param.description>
     <param.screenshot>${PROJECT_ROOT}\工具箱图标.png</param.screenshot>
-    <param.version>2.0.1</param.version>
+    <param.version>2.0.2</param.version>
     <param.output>${PROJECT_ROOT}\全局优化.mltbx</param.output>
     <param.products.name>
       <item>Global Optimization Toolbox</item>
