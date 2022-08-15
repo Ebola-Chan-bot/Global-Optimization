@@ -9,15 +9,13 @@ import GlobalOptimization.*
 - [ColorAllocate](#ColorAllocate) 根据人类视觉特点，提供最显眼的作图配色方案
 # ColorAllocate
 根据人类视觉特点，提供最显眼的作图配色方案
-
-作图时经常陷入如何挑选最优配色方案的顾虑。对于不同颜色数目的需求，往往有截然不同的配色方案。本函数解决此问题，输入需要的颜色数量，直接输出对人类视觉来说最为醒目、高对比的最佳配色方案！
 ```MATLAB
 import GlobalOptimization.ColorAllocate
 ColorAllocate(3,[0 0 0])%在黑色背景下作三色图的最优配色方案
 ColorAllocate(4,[1 1 1])%在白色背景下作四色图的最优配色方案
 ColorAllocate(2,[0 0 0;1 1 1])%在黑白交织背景下选择两种最醒目的颜色
 ```
-本函数采用GlobalSearch和fmincon求解器搜索最优配色方案。因为搜索起点是随机指派的，每次调用函数可能得到不同的配色方案和不同的最小色差。您可以多次尝试，选择最小色差最大的方案。
+此函数会在userpath下生成一个+GlobalOptimization缓存目录，用于加速以后的函数调用。如果函数工作不正常，可以尝试删除此目录。
 ## 输入参数
 NoColors(1,1)，必需，要分配的颜色数目
 
