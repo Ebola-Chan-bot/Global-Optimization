@@ -17,7 +17,7 @@ import GlobalOptimization.*
 function [Colors,MD] = ColorAllocate(NumColors,ColorsToAvoid)
 ```</param.description>
     <param.screenshot>${PROJECT_ROOT}\工具箱图标.png</param.screenshot>
-    <param.version>3.1.0</param.version>
+    <param.version>3.1.1</param.version>
     <param.output>${PROJECT_ROOT}\全局优化.mltbx</param.output>
     <param.products.name>
       <item>Global Optimization Toolbox</item>
