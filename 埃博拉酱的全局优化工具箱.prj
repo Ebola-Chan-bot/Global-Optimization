@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="3984792417" file="C:\Users\vhtmf\Documents\MATLAB\全局优化\埃博拉酱的全局优化工具箱.prj" location="C:\Users\vhtmf\Documents\MATLAB\全局优化" name="埃博拉酱的全局优化工具箱" target="target.toolbox" target-name="打包为工具箱">
+  <configuration build-checksum="3984792417" file="D:\Users\Administrator\Documents\MATLAB\Global-Optimization\埃博拉酱的全局优化工具箱.prj" location="D:\Users\Administrator\Documents\MATLAB\Global-Optimization" name="埃博拉酱的全局优化工具箱" target="target.toolbox" target-name="打包为工具箱">
     <param.appname>全局优化</param.appname>
     <param.authnamewatermark>埃博拉酱</param.authnamewatermark>
     <param.email>vhtmfu@outlook.com</param.email>
@@ -17,7 +17,7 @@ import GlobalOptimization.*
 function [Colors,MD] = ColorAllocate(NumColors,ColorsToAvoid)
 ```</param.description>
     <param.screenshot>${PROJECT_ROOT}\工具箱图标.png</param.screenshot>
-    <param.version>3.1.1</param.version>
+    <param.version>3.1.2</param.version>
     <param.output>${PROJECT_ROOT}\全局优化.mltbx</param.output>
     <param.products.name>
       <item>Global Optimization Toolbox</item>
@@ -26,7 +26,7 @@ function [Colors,MD] = ColorAllocate(NumColors,ColorsToAvoid)
       <item>90</item>
     </param.products.id>
     <param.products.version>
-      <item>23.2</item>
+      <item>24.2</item>
     </param.products.version>
     <param.platforms />
     <param.guid>4d05e210-f73f-4916-9076-1c9b15718b36</param.guid>
@@ -110,6 +110,7 @@ resources/project
     </fileset.rootdir>
     <fileset.rootfiles>
       <file>${PROJECT_ROOT}\+GlobalOptimization</file>
+      <file>${PROJECT_ROOT}\Contents.m</file>
       <file>${PROJECT_ROOT}\doc</file>
       <file>${PROJECT_ROOT}\README.md</file>
       <file>${PROJECT_ROOT}\resources</file>
@@ -119,11 +120,11 @@ resources/project
     <fileset.depfun.excluded />
     <fileset.package />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}" name="全局优化.mltbx" optional="false">C:\Users\vhtmf\Documents\MATLAB\全局优化\全局优化.mltbx</file>
+      <file location="${PROJECT_ROOT}" name="全局优化.mltbx" optional="false">D:\Users\Administrator\Documents\MATLAB\Global-Optimization\全局优化.mltbx</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2023b</root>
+      <root>C:\Program Files\MATLAB\R2024b</root>
       <toolboxes />
     </matlab>
     <platform>
