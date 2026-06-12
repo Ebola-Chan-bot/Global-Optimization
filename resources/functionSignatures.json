@@ -15,6 +15,18 @@
                     "size=:,3"
                 ],
                 "purpose": "要避免的颜色"
+            },
+            {
+                "name":"DistanceFun",
+                "kind":"ordered",
+                "type":"function_handle",
+                "purpose":"计算颜色之间距离的函数"
+            },
+            {
+                "name": "Effort",
+                "kind": "ordered",
+                "type": "positive",
+                "purpose": "分配颜色的努力程度，数值越大，分配的颜色越接近最优"
             }
         ]
     }
