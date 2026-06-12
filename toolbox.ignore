@@ -33,3 +33,5 @@ resources/project
 .git*
 工具箱图标.png
 README.md
+*.mltbx
+deploymentLog.html
