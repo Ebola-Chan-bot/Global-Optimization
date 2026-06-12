@@ -7,5 +7,5 @@ import GlobalOptimization.*
 函数
 ```MATLAB
 %根据人类视觉特点，提供最显眼的作图配色方案
-function [Colors,MD] = ColorAllocate(NumColors,ColorsToAvoid)
+function [Colors,MD] = ColorAllocate(NumColors,varargin)
 ```
