@@ -43,8 +43,9 @@
 %[text] Colors(NumColors,3)，分配的RGB颜色三元向量，每行一种颜色。如果ColorsToAvoid是\[0,1\]范围的浮点数，Colors也将是\[0,1\]范围的浮点数；否则，Colors将用uint8类型表示RGB颜色。
 %[text] Distance(1,1)double，优化配色方案的视觉差异。该值越大，配色方案就越对比鲜明。
 %[text] ## 算法
-%[text] 使用 fmincon 多起点并行搜索，在连续 RGB 空间中直接最大化所有颜色两两之间
-%[text] 的最小 CIEDE2000 色差（max-min 优化）。起点数为 Effort×NumColors。
+%[text] 使用 fmincon 多起点并行搜索 + patternsearch 精细打磨，在连续 RGB 空间中直接最大化所有颜色两两之间
+%[text] 的最小 CIEDE2000 色差（max-min 优化）。fmincon 起点数为 Effort×NumColors。
+%[text] patternsearch 以 fmincon 结果为起点进一步打磨，消除非光滑瓶颈切换导致的停滞。
 %[text] **See also** [fmincon](<matlab:doc fmincon>) [imcolordiff](<matlab:doc imcolordiff>) [userpath](<matlab:doc userpath>)
 function [Colors,Distance] = ColorAllocate(NumColors,varargin)
 ColorsToAvoid=NaN(0,3);
@@ -99,19 +100,10 @@ try
 	Colors=Cache(Key);
 	Colors=Colors{1};
 catch
-	nVars=NumColors*3;
 	ColorsToAvoid3D=reshape(ColorsToAvoid,[],1,3);
-	% fmincon 多起点并行搜索，最大化 min CIEDE2000
-	NStarts=Effort*NumColors;
-	XTrials=cell(NStarts,1);
-	FTrials=zeros(NStarts,1);
-	x0=rand(NStarts,nVars);
-	parfor k=1:NStarts
-		[XTrials{k},FTrials(k)]=fmincon(@(x)ColorObjective(x,ColorsToAvoid3D,NumColors,DistanceFun),x0(k,:),...
-			[],[],[],[],zeros(1,nVars),ones(1,nVars),[],fminOpts);
-	end
-	[~,Idx]=min(FTrials);
-	Colors=reshape(XTrials{Idx},3,[])';
+	% fmincon 多起点并行 + patternsearch 精细打磨
+	AllColors=OptimizeSubset(NumColors,ColorsToAvoid3D,DistanceFun,Effort,fminOpts);
+	Colors=AllColors;
 	Cache(Key)={Colors};
 	save(CachePath,'Cache');
 end
@@ -121,6 +113,34 @@ end
 if ByteMode
 	Colors=uint8(Colors*255);
 end
+end
+%%
+function Colors=OptimizeSubset(NumColors,ColorsToAvoid3D,DistanceFun,Effort,fminOpts,WarmStart)
+% fmincon 多起点并行优化 + patternsearch 精细打磨
+% WarmStart: 可选的当前颜色 (NumColors×3)，作为起点之一
+nVars=NumColors*3;
+NStarts=Effort*NumColors;
+XTrials=cell(NStarts,1);
+FTrials=zeros(NStarts,1);
+x0=rand(NStarts,nVars);
+if nargin>5 && ~isempty(WarmStart)
+	x0(1,:)=WarmStart(:)';
+end
+persistent psOpts
+if isempty(psOpts)
+	psOpts=optimoptions('patternsearch',Display='off',MeshTolerance=1e-10,StepTolerance=1e-10);
+end
+parfor k=1:NStarts
+	[Xf,~]=fmincon(@(x)ColorObjective(x,ColorsToAvoid3D,NumColors,DistanceFun),x0(k,:),...
+		[],[],[],[],zeros(1,nVars),ones(1,nVars),[],fminOpts);
+	% patternsearch 精细打磨：消除非光滑瓶颈切换导致的停滞
+	[XTrial,FTrial]=patternsearch(@(x)ColorObjective(x,ColorsToAvoid3D,NumColors,DistanceFun),Xf,...
+		[],[],[],[],zeros(1,nVars),ones(1,nVars),[],psOpts);
+	XTrials{k}=XTrial;
+	FTrials(k)=FTrial;
+end
+[~,Idx]=min(FTrials);
+Colors=reshape(XTrials{Idx},3,[])';
 end
 %%
 function D=ColorObjective(X,AvoidColors3D,NumColorsIn,DistanceFun)
