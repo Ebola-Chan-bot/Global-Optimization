@@ -23,12 +23,11 @@
 %[text] ColorAllocate(4,[1 1 1])%作四色图的最优配色方案，但回避白色
 %[text] ColorAllocate(2,[0 0 0;1 1 1])%作二色图的最优配色方案，回避黑色和白色
 %[text] ColorAllocate(2,[255,255,255])%作二色图的最优配色方案，回避白色，返回uint8表示的颜色
-%[text] ColorAllocate(2,[255,255,255;255,255,255])%白色是背景色，需要加倍回避
 %[text] ```
 %[text] ## 输入参数
 %[text] NumColors(1,1)，要分配的颜色数目
-%[text] ColorsToAvoid(:,3)，要避免的颜色。图中已存在某种颜色的元素时，应当回避该颜色。此外，通常还应当加倍回避背景色，此时可以将背景色重复两行以起到加权回避的作用，使得分配的颜色在背景色的环绕下尤为醒目。
-%[text] Effort(1,1)=4，优化力度。此值越大越有可能找到最优配色，但耗时也越长。
+%[text] ColorsToAvoid(:,3)，要避免的颜色。图中已存在某种颜色的元素时，应当回避该颜色。
+%[text] Effort(1,1)=2，优化力度。此值越大越有可能找到最优配色，但耗时也越长。2以上边际收益极低。
 %[text] ### DistanceFun
 %[text] function\_handle，颜色距离计算函数，用于优化不同颜色间的最小距离。此函数应设计为向量化的，可以一次调用计算多组颜色距离。
 %[text] #### 语法
@@ -50,7 +49,7 @@
 function [Colors,Distance] = ColorAllocate(NumColors,varargin)
 ColorsToAvoid=NaN(0,3);
 DistanceFun=function_handle.empty;
-Effort=4;
+Effort=2;
 for V=1:numel(varargin)
 	Arg=varargin{V};
 	if isscalar(Arg)
