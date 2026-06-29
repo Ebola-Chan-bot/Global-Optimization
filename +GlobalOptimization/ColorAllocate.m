@@ -39,7 +39,7 @@
 %[text] Distances，距离值。若返回向量或矩阵，优化目标为最大化其中的最小值（max-min）；若返回标量，优化目标为最大化该标量值。
 %[text] ## 名称值参数
 %[text] Effort(1,1)=2，优化力度。此值越大越有可能找到最优配色，但耗时也越长。2以上边际收益极低。
-%[text] AvoidDebuff(1,1)=1，回避弱化率，计算回避色和候选色之间色差时要乘以的倍率。该数值越大，回避色的排斥力越小：充分大的数值可以让回避色的影响完全消失；反之，数值趋于零时，回避效应会支配优化目标。一般来说，如果视野中候选色块和回避色块的面积差异较大时，回避弱化率可以适当调高；面积相当时，通常也不建议小于1。
+%[text] AvoidDebuff(1,1)=1.8，回避弱化率，计算回避色和候选色之间色差时要乘以的倍率。该数值越大，回避色的排斥力越小：充分大的数值可以让回避色的影响完全消失；反之，数值趋于零时，回避效应会支配优化目标。一般来说，如果视野中候选色块和回避色块的面积差异较大时，回避弱化率可以适当调高；面积相当时，通常也不建议小于1。
 %[text] # 返回值
 %[text] Colors(NumColors,3)，分配的RGB颜色三元向量，每行一种颜色。如果ColorsToAvoid是\[0,1\]范围的浮点数，Colors也将是\[0,1\]范围的浮点数；否则，Colors将用uint8类型表示RGB颜色。
 %[text] Distance(1,1)double，优化配色方案的视觉差异。该值越大，配色方案就越对比鲜明。
@@ -51,7 +51,7 @@ function [Colors,Distance] = ColorAllocate(NumColors,varargin)
 ColorsToAvoid=NaN(0,3);
 DistanceFun=function_handle.empty;
 Effort=2;
-AvoidDebuff=1;
+AvoidDebuff=1.8;
 
 % 第一段：位置参数（遇到名称值参数起点后停止）
 NumVais=numel(varargin);
