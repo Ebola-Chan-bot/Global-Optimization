@@ -44,8 +44,7 @@
 %[text] Colors(NumColors,3)，分配的RGB颜色三元向量，每行一种颜色。如果ColorsToAvoid是\[0,1\]范围的浮点数，Colors也将是\[0,1\]范围的浮点数；否则，Colors将用uint8类型表示RGB颜色。
 %[text] Distance(1,1)double，优化配色方案的视觉差异。该值越大，配色方案就越对比鲜明。
 %[text] # 算法
-%[text] 使用 fmincon 多起点并行搜索 + patternsearch 精细打磨，在连续 RGB 空间中直接最大化所有颜色两两之间
-%[text] 的最小 CIEDE2000 色差（max-min 优化）。fmincon 起点数为 Effort×NumColors。
+%[text] 使用 fmincon 多起点并行搜索 + patternsearch 精细打磨，在连续 RGB 空间中直接最大化所有颜色两两之间的最小 CIEDE2000 色差（max-min 优化）。fmincon 起点数为 Effort×NumColors。
 %[text] patternsearch 以 fmincon 结果为起点进一步打磨，消除非光滑瓶颈切换导致的停滞。
 %[text] **See also** [fmincon](<matlab:doc fmincon>) [imcolordiff](<matlab:doc imcolordiff>) [userpath](<matlab:doc userpath>)
 function [Colors,Distance] = ColorAllocate(NumColors,varargin)
