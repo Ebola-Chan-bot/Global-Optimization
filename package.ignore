@@ -39,7 +39,9 @@
 **/.buildtool/
 
 % Project resources folder
-resources/
+resources/project
+resources/5*
+
 README.md
 deploymentLog.html
 工具箱图标.png
